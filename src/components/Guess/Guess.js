@@ -1,0 +1,32 @@
+import React from "react";
+import {range } from '../../utils';
+import { checkGuess } from '../../game-helpers'
+
+//Rule as long as there is no export and its a simple function
+//it can be included in the same component
+function Cell({ letter, status }) {
+  const className = status ? `cell ${status}` : 'cell';
+  return (
+    <span className={className}>{letter}</span>//careful about ` and not '
+  )
+}
+
+function Guess({ value, answer }) {
+  const result = checkGuess(value, answer);
+
+  console.log({result});
+  return (
+    <p className="guess">
+      {range(5).map((num) => (
+        <Cell
+          key={num}
+          letter={result ? result[num].letter : undefined}
+          status={result ? result[num].status : undefined}
+          />
+      ))}
+    </p>
+  );
+}
+
+export default Guess;
+
